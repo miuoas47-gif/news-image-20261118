@@ -4,7 +4,7 @@
 Usage:
     python3 main.py --check     validate the entry files
     python3 main.py --serve     serve this directory over HTTP
-    python3 main.py             same as --serve
+    python3 main.py             same as --check (validate and exit)
 
 Checks: index.html exists and references ad.png, ad.png exists and is
 <= 8 MB, index.html is <= 2 MB, and README.md carries the make.fun badges.
@@ -93,7 +93,15 @@ def main():
         print(f"{sum(results)}/{len(results)} checks passed."
               if ok else "Some checks FAILED.")
         sys.exit(0 if ok else 1)
-    serve(args.port)
+    if args.serve:
+        serve(args.port)
+    # No arguments: validate the entry files and exit, so a plain run
+    # completes instead of serving forever.
+    results = run_checks()
+    ok = all(results)
+    print(f"{sum(results)}/{len(results)} checks passed."
+          if ok else "Some checks FAILED.")
+    sys.exit(0 if ok else 1)
 
 
 if __name__ == "__main__":
