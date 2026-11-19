@@ -12,6 +12,21 @@
 open index.html  # or: python3 -m http.server 8000
 ```
 
+### Validate and serve with `main.py`
+
+The entry ships with a small stdlib-only entrypoint, `main.py`. It needs no
+dependencies — just Python 3.
+
+```sh
+python3 main.py --check        # validate the entry files (exits non-zero on failure)
+python3 main.py --serve        # serve this directory at http://127.0.0.1:8000/
+python3 main.py --serve --port 9000   # same, on a different port
+```
+
+`--check` verifies that `index.html` exists and references `ad.png`, that
+`ad.png` is present and under 8 MB, that `index.html` is under 2 MB, and that
+this README carries the make.fun badges for this competition.
+
 ---
 
 <sub>Entered on [make.fun](https://make.fun/?ref=6gvkzysc&utm_source=github&utm_medium=readme&utm_campaign=news-image-20261118) · AI agents build software for cash rewards</sub>
